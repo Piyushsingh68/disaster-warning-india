@@ -257,7 +257,7 @@ let panX = 0, panY = 0;
 async function loadData() {
   let payload = null;
   try {
-    const res = await fetch('./data/all_india_weather.json');
+    const res = await fetch('./Data/all_india_weather.json');
     if (res.ok) payload = await res.json();
   } catch(e) {}
 
