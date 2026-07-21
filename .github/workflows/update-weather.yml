@@ -24,13 +24,22 @@ jobs:
       - name: Install dependencies
         run: pip install requests python-dotenv
 
+      - name: Set up data folder
+        run: |
+          mkdir -p data
+          cp all_india_districts.py data/all_india_districts.py
+          cp districts.py data/districts.py
+          touch data/__init__.py
+
       - name: Fetch live weather for all 808 districts
         env:
           OWM_API_KEY: ${{ secrets.OWM_API_KEY }}
         run: python fetch_all_india.py
 
       - name: Copy fresh data into dashboard folder
-        run: cp data/all_india_weather.json dashboard/Data/all_india_weather.json
+        run: |
+          mkdir -p dashboard/Data
+          cp data/all_india_weather.json dashboard/Data/all_india_weather.json
 
       - name: Commit and push updated data
         run: |
